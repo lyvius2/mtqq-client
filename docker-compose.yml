@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0.18
+    container_name: mosquitto-local-dev
+    ports:
+      - "11883:1883"
+      - "19001:9001"
+    expose:
+      - "1883"
+      - "9001"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - mosquitto-q
+    mem_limit: "256mb"
+
+networks:
+  mosquitto-q:
+    driver: bridge
