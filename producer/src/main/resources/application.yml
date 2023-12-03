@@ -1,0 +1,24 @@
+server:
+  port: 6079
+
+spring:
+  application:
+    name: Producer for MQTT
+  mqtt:
+    broker-url: tcp://127.0.0.1:11883
+    username: mosquitto-client
+    password: mosquitto!1
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info, metrics
+  observations:
+    key-values:
+      application: ${spring.application.name}
