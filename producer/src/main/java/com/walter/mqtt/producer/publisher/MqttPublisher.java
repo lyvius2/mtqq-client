@@ -1,7 +1,5 @@
 package com.walter.mqtt.producer.publisher;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
@@ -16,16 +14,13 @@ public class MqttPublisher {
 	private static final String TOPIC_NAME = "SAMPLE_TOPIC";
 	private final DefaultMqttPahoClientFactory defaultMqttPahoClientFactory;
 	private final MessageConverter messageConverter;
-	private final ObjectMapper objectMapper;
 
-	public MqttPublisher(DefaultMqttPahoClientFactory defaultMqttPahoClientFactory, MessageConverter messageConverter, ObjectMapper objectMapper) {
+	public MqttPublisher(DefaultMqttPahoClientFactory defaultMqttPahoClientFactory, MessageConverter messageConverter) {
 		this.defaultMqttPahoClientFactory = defaultMqttPahoClientFactory;
 		this.messageConverter = messageConverter;
-		this.objectMapper = objectMapper;
 	}
 
-	public void publishing(Object object) throws JsonProcessingException {
-		final String payload = objectMapper.writeValueAsString(object);
+	public void publishing(String payload) {
 		Message<String> message = MessageBuilder.withPayload(payload)
 												.setHeader(MqttHeaders.TOPIC, TOPIC_NAME)
 												.build();

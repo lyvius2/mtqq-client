@@ -1,0 +1,10 @@
+server:
+  port: 6080
+
+spring:
+  application:
+    name: Consumer for MQTT
+  mqtt:
+    broker-url: tcp://127.0.0.1:11883
+    username: mosquitto-client
+    password: mosquitto!1
